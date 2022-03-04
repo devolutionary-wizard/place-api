@@ -6,10 +6,11 @@ const {
   removeCategory,
   editCategory,
 } = require("../controllers/category");
+const { verifyTokenAndAdmin } = require("../middlewares/verifyToken");
 
-router.post("/", createCategory);
+router.post("/", verifyTokenAndAdmin, createCategory);
 router.get("/", getAllCategories);
 router.get("/:id", getOneCategory);
-router.delete("/:id", removeCategory);
-router.put("/:id", editCategory);
+router.delete("/:id", verifyTokenAndAdmin, removeCategory);
+router.put("/:id", verifyTokenAndAdmin, editCategory);
 module.exports = router;

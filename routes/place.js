@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const { upload } = require("../services/imageUpload");
 const {
+  verifyTokenAndAdmin,
+  verifyTokenAndAuthorization,
+} = require("../middlewares/verifyToken");
+const {
   createPlace,
   getAllPlaces,
   getPlace,
@@ -8,10 +12,10 @@ const {
   editPlace,
 } = require("../controllers/place");
 
-router.post("/", upload.single("placeImage"), createPlace);
+router.post("/", verifyTokenAndAdmin, upload.single("placeImage"), createPlace);
 router.get("/", getAllPlaces);
 router.get("/:id", getPlace);
-router.delete("/:id", removePlace);
-router.put("/:id", editPlace);
+router.delete("/:id", verifyTokenAndAdmin, removePlace);
+router.put("/:id", verifyTokenAndAdmin, editPlace);
 
 module.exports = router;

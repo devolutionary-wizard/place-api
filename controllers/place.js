@@ -1,3 +1,4 @@
+const { verifyTokenAndAuthorization } = require("../middlewares/verifyToken");
 const Place = require("../models/place");
 
 const createPlace = async (req, res) => {
