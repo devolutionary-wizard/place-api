@@ -3,10 +3,7 @@ const Place = require("../models/place");
 
 const createPlace = async (req, res) => {
   try {
-    // const { name, desc, image, category } = req.body;
-    const place = await Place.findById(req.params.id);
-    if (place)
-      return res.status(400).json({ message: "This Place already exists " });
+    console.log(req.file);
     const newPlace = new Place({
       name: req.body.name,
       desc: req.body.desc,
@@ -14,7 +11,9 @@ const createPlace = async (req, res) => {
       category: req.body.category,
     });
     const savePlace = await newPlace.save();
-    res.status(201).json(savePlace);
+    res
+      .status(201)
+      .json({ message: "Place has been create by me", payload: savePlace });
   } catch (err) {
     res.status(500).json(err);
   }
